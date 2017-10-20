@@ -7,8 +7,8 @@
 
     <cn.tianya.light.view.TabChannelIndicator
         android:id="@+id/tabIndicator"
-        android:layout_width="@dimen/tab_layout_width"
-        android:layout_height="@dimen/tab_layout_height"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         app:indicatorHeightEx="2dp" />
 
     <FrameLayout
@@ -33,7 +33,7 @@
             <View
                 android:layout_alignParentBottom="true"
                 android:id="@+id/diver"
-                android:layout_width="@dimen/horizontal_diver_width"
+                android:layout_width="100dp"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="-2dp"
                 android:background="@color/color_e0e0e0" />
