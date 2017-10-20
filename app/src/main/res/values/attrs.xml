@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- for the　TabPageIndicator -->
+    <declare-styleable name="TabChannelIndicator">
+        <attr name="itemWidthEx" format="dimension" />
+        <attr name="indicatorHeightEx" format="dimension" />
+        <attr name="indicatorPaddingEx" format="dimension" />
+        <attr name="indicatorColorEx" format="color" />
+        <attr name="dividerColorEx" format="color" />
+        <attr name="indicatorLineStrokeWidth" format="dimension"/>
+        <attr name="indicatorDividerStrokeWidth" format="dimension"/>
+        <attr name="indicatorLineWidthEx" format="dimension" />
+    </declare-styleable>
+</resources>
