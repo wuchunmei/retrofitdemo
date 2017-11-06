@@ -1,19 +1,60 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    //为了解决Error:duplicate files during packaging of APK ........Path in archive: META-INF/LICENSE.txt
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+    // android 选项 下面 添加lint 检测设置
+
+    lintOptions {
+        //build release 版本 时 开启lint 检测
+        checkReleaseBuilds false
+        //lint 遇到 error 时继续 构建
+        abortOnError false
+
+    }
 
     defaultConfig {
         applicationId "demo.wuchunmei.com.retrofitdemo"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode rootProject.versionCode
+        versionName rootProject.versionName
     }
+    signingConfigs {
+        release {//发布版本的签名配置
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PWD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PWD
+        }
+        debug {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PWD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PWD
+        }
+
+
+    }
+
     buildTypes {
-        release {
+        debug {
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+        }
+        release {
+            minifyEnabled false //是否混淆
+            zipAlignEnabled true //Zipalign优化
+            shrinkResources false // 移除无用的resource文件
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
