@@ -24,6 +24,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.view.activity.LoginActivity"/>
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5a002facaed1796dc8000021" /><!--友盟 Appkey-->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" /> <!--渠道号，多渠道这里使用了占位符-->
     </application>
 
 </manifest>

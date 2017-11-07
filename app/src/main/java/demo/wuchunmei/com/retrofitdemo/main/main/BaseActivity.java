@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import demo.wuchunmei.com.retrofitdemo.R;
@@ -28,6 +30,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
+        //友盟统计
+        MobclickAgent.openActivityDurationTrack(false);
         mContext = this;
         mUnbinder = ButterKnife.bind(this);
         initBundleData();
@@ -93,11 +97,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
 
     }
 
     public void onPause() {
         super.onPause();
+        MobclickAgent.onPause(this);
 
     }
 

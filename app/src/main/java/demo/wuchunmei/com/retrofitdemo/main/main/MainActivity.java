@@ -7,6 +7,7 @@ import android.view.View;
 
 
 import com.google.gson.Gson;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.OnClick;
 import demo.wuchunmei.com.retrofitdemo.R;
