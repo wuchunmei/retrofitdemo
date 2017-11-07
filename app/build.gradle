@@ -71,21 +71,28 @@ android {
                     //遍历渠道
                     productFlavors.each { flavor ->
                         def myFlavor = flavor
-                        //定义输出文件名
-                        def fileName = "retrofitdemo-v${defaultConfig.versionName}-${productFlavors.manifestPlaceholders.UMENG_CHANNEL_VALUE}-${defaultConfig.versionCode}-release.apk"
-//                        def fileName = "${applicationId}_v${defaultConfig.versionName}_${myFlavor.manifestPlaceholders.UMENG_CHANNEL_VALUE}_${releaseTime()}_release.apk"
+//                        //定义输出文件名
+//                        def fileName = "retrofitdemo-v${defaultConfig.versionName}-${productFlavors.manifestPlaceholders.UMENG_CHANNEL_VALUE}-${defaultConfig.versionCode}-release.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+                        //或者这种方式
+                        //可自定义自己想要生成的格式
+                        def channel = variant.productFlavors[0].name.startsWith("_") ? variant.productFlavors[0].name.substring(1) : variant.productFlavors[0].name
+                        def fileName = "v${defaultConfig.versionName}_${releaseTime()}_${channel}.apk"
                         output.outputFile = new File(outputFile.parent, fileName)
                     }
 
 //                    output.outputFile = new File(outputFile.parent, fileName)
                 }
                 if (variant.buildType.name.equals('debug')) {
-                    def fileName = "retrofitdemo-v${defaultConfig.versionName}-${productFlavors.manifestPlaceholders.UMENG_CHANNEL_VALUE}-${defaultConfig.versionCode}-debug.apk"
+//                    def fileName = "retrofitdemo-v${defaultConfig.versionName}-${productFlavors.manifestPlaceholders.UMENG_CHANNEL_VALUE}-${defaultConfig.versionCode}-debug.apk"
+                    def fileName = "retrofitdemo-v${defaultConfig.versionName}-${defaultConfig.versionCode}-debug.apk"
                     output.outputFile = new File(outputFile.parent, fileName)
                 }
             }
         }
     }
+
+
 
     //多渠道打包支持
     productFlavors {
@@ -140,6 +147,10 @@ android {
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
+}
+
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
 }
 
 
