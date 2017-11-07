@@ -62,6 +62,31 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    // 自定义导出apk名称
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                if (variant.buildType.name.equals('release')) {
+                    //遍历渠道
+                    productFlavors.each { flavor ->
+                        def myFlavor = flavor
+                        //定义输出文件名
+                        def fileName = "retrofitdemo-v${defaultConfig.versionName}-${productFlavors.manifestPlaceholders.UMENG_CHANNEL_VALUE}-${defaultConfig.versionCode}-release.apk"
+//                        def fileName = "${applicationId}_v${defaultConfig.versionName}_${myFlavor.manifestPlaceholders.UMENG_CHANNEL_VALUE}_${releaseTime()}_release.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+
+//                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+                if (variant.buildType.name.equals('debug')) {
+                    def fileName = "retrofitdemo-v${defaultConfig.versionName}-${productFlavors.manifestPlaceholders.UMENG_CHANNEL_VALUE}-${defaultConfig.versionCode}-debug.apk"
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }
+    }
+
     //多渠道打包支持
     productFlavors {
         Alpha {//自己打包测试使用
@@ -116,6 +141,8 @@ android {
         flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
